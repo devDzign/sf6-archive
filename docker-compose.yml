@@ -1,19 +1,44 @@
-version: '3'
-
+version: '3.8'
 services:
-###> doctrine/doctrine-bundle ###
+
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
+    container_name: '${DOCKER_PROJET_NAME}_postgres'
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+      POSTGRES_PASSWORD: ${POSTGRES_DB:-main}
+      POSTGRES_USER: main
+      POSTGRES_DB: ${POSTGRES_USER:-main}
     volumes:
       - db-data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
+    ports:
+      - '54321:5432'
+
+  database_panther:
+    image: 'postgres:alpine'
+    container_name: '${DOCKER_PROJET_NAME}_test_panther_postgres'
+    environment:
+      POSTGRES_PASSWORD: main
+      POSTGRES_USER: main
+      POSTGRES_DB: '${DOCKER_PROJET_NAME}_test_panther_db'
+    ports:
+      - '54322:5432'
+
+  redis:
+    image: library/redis:6-alpine
+    container_name: '${DOCKER_PROJET_NAME}_redis'
+    ports: [6379]
+
+  rabbitmq:
+    image: library/rabbitmq:3.8-management
+    container_name: '${DOCKER_PROJET_NAME}_mq'
+    ports: [5672, 15672]
+
+  mailer:
+    image: schickling/mailcatcher
+    container_name: '${DOCKER_PROJET_NAME}_mailer'
+    ports: [ 1025, 1080 ]
 
 volumes:
 ###> doctrine/doctrine-bundle ###
