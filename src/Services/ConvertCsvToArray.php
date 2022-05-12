@@ -7,8 +7,6 @@ class ConvertCsvToArray
     /**
      * @param        $filename
      * @param string $delimiter
-     *
-     * @return array|null
      */
     public function convert($filename, $delimiter = ';'): ?array
     {

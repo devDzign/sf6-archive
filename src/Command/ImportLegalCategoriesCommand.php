@@ -62,7 +62,7 @@ class ImportLegalCategoriesCommand extends Command
         $data = $this->convertCsvToArray->convert(self::FILE_PATH, ';');
 
         // Define the size of record, the frequency for persisting the data and the current index of records
-        $size = count($data);
+        $size = count((array) $data);
         $batchSize = 20;
         $i = 1;
 

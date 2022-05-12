@@ -22,10 +22,6 @@ class ArchivedCompany
     }
 
     /**
-     * @param Company $company
-     * @param string  $action
-     * @param array   $context
-     * @param bool    $isCollection
      *
      * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */

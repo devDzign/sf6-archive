@@ -15,7 +15,7 @@ class Archive
     private $id;
 
     #[ORM\Column(type: 'json')]
-    private $data = [];
+    private array $data = [];
 
     #[ORM\Column(type: 'date_immutable')]
     private $createdAt;

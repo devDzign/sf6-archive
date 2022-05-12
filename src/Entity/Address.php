@@ -10,37 +10,37 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: AddressRepository::class)]
-class Address
+class Address implements \Stringable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     #[Groups(['archived'])]
-    private $id;
+    private int $id;
 
     #[ORM\Column(type: 'integer')]
-    private $streetNumber;
+    private int $streetNumber;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['archived'])]
-    private $streetType;
+    private string $streetType;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['archived'])]
-    private $streetName;
+    private string $streetName;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Groups(['archived'])]
-    private $city;
+    private string $city;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\Regex(pattern: '/^[A-Za-z0-9]{5}$/', message: 'ZipCode invalid')]
     #[Groups(['archived'])]
-    private $zipCode;
+    private string $zipCode;
 
     #[ORM\ManyToOne(targetEntity: Company::class, cascade: ["persist"], inversedBy: 'localizations')]
     #[ORM\JoinColumn(nullable: false)]
-    private $company;
+    private Company $company;
 
 
     public function getId(): ?int
@@ -121,7 +121,7 @@ class Address
     }
 
 
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getCity();
     }

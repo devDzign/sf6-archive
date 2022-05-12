@@ -17,17 +17,12 @@ use Symfony\Component\Serializer\SerializerInterface;
  */
 class ArchiveRepository extends ServiceEntityRepository
 {
-    private SerializerInterface $serializer;
-    private ObjectNormalizer $objectNormalizer;
-
     public function __construct(
         ManagerRegistry $registry,
-        SerializerInterface $serializer,
-        ObjectNormalizer $objectNormalizer
+        private SerializerInterface $serializer,
+        private ObjectNormalizer $objectNormalizer
     ) {
         parent::__construct($registry, Archive::class);
-        $this->serializer = $serializer;
-        $this->objectNormalizer = $objectNormalizer;
     }
 
 

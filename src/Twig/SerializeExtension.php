@@ -9,18 +9,12 @@ use Twig\TwigFilter;
 class SerializeExtension extends AbstractExtension
 {
     /**
-     * @var SerializerInterface $serializer
-     */
-    private SerializerInterface $serializer;
-
-    /**
      * SerializeExtension constructor.
      *
      * @param SerializerInterface $serializer
      */
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(private SerializerInterface $serializer)
     {
-        $this->serializer = $serializer;
     }
 
     /**
@@ -35,10 +29,7 @@ class SerializeExtension extends AbstractExtension
 
     /**
      * @param        $data
-     * @param string $format
-     * @param array  $context
      *
-     * @return string
      */
     public function serialize($data, string $format = 'json', array $context = []): string
     {
