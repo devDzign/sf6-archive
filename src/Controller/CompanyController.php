@@ -19,13 +19,7 @@ class CompanyController extends AbstractController
     {
     }
 
-    #[Route('/', name: 'company_index', methods: ['GET'])]
-    public function index(): Response
-    {
-        return $this->render('company/index.html.twig', [
-            'companies' => $this->companyRepository->findAll(),
-        ]);
-    }
+
 
     #[Route('/new', name: 'company_new', methods: ['GET', 'POST'])]
     public function new(Request $request): Response

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CompanyRepository;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -111,9 +112,9 @@ class Company
         return $this;
     }
 
-    public function getDateOfRegistration(): ?\DateTimeImmutable
+    public function getDateOfRegistration(): ?string
     {
-        return $this->dateOfRegistration;
+        return Carbon::instance($this->dateOfRegistration)->subSeconds(1000)->diffForHumans();
     }
 
     public function setDateOfRegistration(\DateTimeImmutable $dateOfRegistration): self

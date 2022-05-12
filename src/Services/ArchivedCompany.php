@@ -7,6 +7,7 @@ use App\Entity\Company;
 use App\Repository\ArchiveRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -18,18 +19,15 @@ class ArchivedCompany
         private EntityManagerInterface $entityManager,
         private SerializerInterface $serializer
     ) {
-
+        $this->objectNormalizer->setSerializer($this->serializer);
     }
 
     /**
      *
-     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function archived(Company $company, string $action, array $context = [], bool $isCollection = false): void
     {
-
-        $this->objectNormalizer->setSerializer($this->serializer);
-
         $archive = (new Archive())
             ->setObjectId($company->getId())
             ->setObjectClass(Company::class)

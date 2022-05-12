@@ -43,10 +43,13 @@
                      </h5>
                   </div>
                   <ul class="list-group list-group-flush">
-                     <li class="list-group-item d-flex justify-content-between align-content-center">
-                        <span>Date création entreprise:</span>
-                        <span>{{ companyOrigin.dateOfRegistration | date('Y/m/d H:i:s') }}</span>
-                     </li>
+                     {% if  companyOrigin %}
+                        <li class="list-group-item d-flex justify-content-between align-content-center">
+                           <span>Date création entreprise:</span>
+                           <span>{{ companyOrigin.dateOfRegistration | date('Y/m/d H:i:s') }}</span>
+                        </li>
+                     {% endif %}
+
                      <li class="list-group-item d-flex justify-content-between align-content-center">
                         <span>Forme juridique:</span>
                         <span></span>{{ company.legalCategory.wording }}

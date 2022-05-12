@@ -19,6 +19,7 @@ class Address implements \Stringable
     private int $id;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['archived'])]
     private int $streetNumber;
 
     #[ORM\Column(type: 'string', length: 255)]
