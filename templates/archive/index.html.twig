@@ -180,10 +180,8 @@
                                                                         <a href="#" class="btn btn-outline-success"
                                                                         >
                                                                             <i class="fas fa-map-marker-alt"></i>
-                                                                            {{ dump(address) }}
-                                                                            {{address.id}}
-{#                                                                            ,{{ address.streetType }} {{ address.streetName }}#}
-{#                                                                            ,{{ address.zipCode }} {{ address.city }}#}
+                                                                            {{address.streetNumber}}, {{address.streetType}} {{address.streetName}},
+                                                                            {{ address.zipCode }} {{ address.city }}
                                                                         </a>
                                                                     </div>
                                                                 </div>
