@@ -1,6 +1,5 @@
 version: '3.8'
 services:
-
   database:
     image: postgres:${POSTGRES_VERSION:-13}-alpine
     container_name: '${DOCKER_PROJET_NAME}_postgres'
