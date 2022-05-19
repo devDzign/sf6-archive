@@ -13,6 +13,7 @@ framework:
             # Route your messages to the transports
              'App\Controller\Post\Messenger\Message\AddPostCommand': async
              'App\Controller\Post\Messenger\Message\DeleteCommand': async
+             'App\Controller\Post\Messenger\Message\UpdateCommand': async
 
 # when@test:
 #    framework:

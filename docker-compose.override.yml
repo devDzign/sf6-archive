@@ -1,0 +1,3 @@
+services:
+  rabbitmq:
+    ports: [64501:5672, 15672]

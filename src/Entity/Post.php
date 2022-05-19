@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
@@ -18,6 +19,11 @@ class Post
 
     #[ORM\Column(type: 'text')]
     private $description;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?DateTime $createdAt= null;
+
+
 
     public function getId(): ?int
     {
@@ -45,6 +51,24 @@ class Post
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    /**
+     * @return null| DateTime
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param null| DateTime $createdAt
+     * @return Post
+     */
+    public function setCreatedAt(?DateTime $createdAt): Post
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }
