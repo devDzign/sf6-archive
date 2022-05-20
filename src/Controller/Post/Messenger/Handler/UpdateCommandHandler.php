@@ -9,20 +9,30 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use JetBrains\PhpStorm\NoReturn;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
-class UpdateCommandHandler implements MessageHandlerInterface
+class UpdateCommandHandler implements MessageHandlerInterface, LoggerAwareInterface
 {
 
-    public function __construct(private EntityManagerInterface $entityManager)
+    use LoggerAwareTrait;
+
+    public function __construct(private PostRepository $postRepository, private EntityManagerInterface $entityManager)
     {
     }
 
     #[NoReturn]
     public function __invoke(UpdateCommand $command): void
     {
-        if($command->getPost() instanceof Post){
-            $this->entityManager->flush();
+        $post = $this->postRepository->find($command->getId());
+        if (!$post) {
+            $this->logger?->alert(sprintf('Image post %d was missing!', $command->getId()));
+            return;
         }
+
+        $post->setCreatedAt(new \DateTime());
+        $this->entityManager->persist($post);
+        $this->entityManager->flush();
     }
 }

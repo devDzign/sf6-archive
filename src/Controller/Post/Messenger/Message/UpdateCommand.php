@@ -6,13 +6,13 @@ use App\Entity\Post;
 
 class UpdateCommand
 {
-    public function __construct(private Post $post)
+    public function __construct(private int $id)
     {
     }
 
-    public function  getPost(): Post
+    public function  getId(): int
     {
-        return $this->post;
+        return $this->id;
     }
 
 
