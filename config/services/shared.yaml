@@ -1,0 +1,32 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  App\InterInvest\Shared\Domain\OpenDataApiHttpClientInterface:
+    class: App\InterInvest\Shared\Infrastructure\Http\OpenDataApiHttpClient
+    arguments:
+      - '@opendata.client'
+
+  App\InterInvest\Shared\Application\Command\CommandBusInterface:
+    class: App\InterInvest\Shared\Messenger\MessengerCommandBus
+    arguments:
+      - '@command.bus'
+
+  App\InterInvest\Shared\Application\Query\QueryBusInterface:
+    class: App\InterInvest\Shared\Messenger\MessengerQueryBus
+    arguments:
+      - '@query.bus'
+
+  App\InterInvest\Shared\Application\Event\EventBusInterface:
+    class: App\InterInvest\Shared\Messenger\MessengerEventBus
+    arguments:
+      - '@event.bus'
+
+  App\InterInvest\Shared\Form\InputForm:
+    arguments:
+      - "@form.factory"
+
+  App\InterInvest\Shared\Infrastructure\Messenger\Middleware\ServicesResetterMiddleware:
+    arguments:
+      - '@services_resetter'

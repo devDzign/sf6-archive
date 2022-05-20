@@ -1,0 +1,29 @@
+
+
+
+services:
+  _defaults:
+    autowire: true
+
+
+
+  App\InterInvest\Company\Application\Query\:
+    resource: '%kernel.project_dir%/src/InterInvest/Company/Application/Query/*Handler.php'
+    tags:
+      - { name: messenger.message_handler, bus: query.bus }
+
+  App\InterInvest\Company\Application\Command\:
+    resource: '%kernel.project_dir%/src/InterInvest/Company/Application/Command/*Handler.php'
+    tags:
+      - { name: messenger.message_handler, bus: command.bus }
+
+  App\InterInvest\Company\UI\Console\Command\:
+    resource: '%kernel.project_dir%/src/InterInvest/Company/UI/Console/Command'
+    tags:
+      - { name: console.command }
+
+  App\InterInvest\Company\UI\Web\Controller\:
+    resource: '%kernel.project_dir%/src/InterInvest/Company/UI/Web/Controller'
+    tags:
+      - { name: controller.service_arguments }
+      - { name: container.service_subscriber }

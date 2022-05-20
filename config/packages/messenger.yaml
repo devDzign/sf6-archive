@@ -1,24 +1,37 @@
 framework:
-    messenger:
-        # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
-        # failure_transport: failed
+  messenger:
+    serializer:
+      default_serializer: 'messenger.transport.symfony_serializer'
 
-        transports:
-            # https://symfony.com/doc/current/messenger.html#transport-configuration
-             async: '%env(MESSENGER_TRANSPORT_DSN)%'
-             failed: 'doctrine://default?queue_name=failed'
-            # sync: 'sync://'
+    default_bus: default.bus
 
-        routing:
-            # Route your messages to the transports
-             'App\Controller\Post\Messenger\Message\AddPostCommand': async
-             'App\Controller\Post\Messenger\Message\DeleteCommand': async
-             'App\Controller\Post\Messenger\Message\UpdateCommand': async
+    buses:
+      default.bus: ~
 
-# when@test:
-#    framework:
-#        messenger:
-#            transports:
-#                # replace with your transport name here (e.g., my_transport: 'in-memory://')
-#                # For more Messenger testing tools, see https://github.com/zenstruck/messenger-test
-#                async: 'in-memory://'
+      history.bus:
+        middleware:
+          - validation
+          - doctrine_transaction
+
+      command.bus:
+        middleware:
+          - validation
+          - doctrine_transaction
+
+      query.bus:
+        middleware:
+          - validation
+          - doctrine_transaction
+
+      event.bus:
+        default_middleware: allow_no_handlers
+        middleware:
+          - doctrine_transaction
+
+    transports:
+      sync: 'sync://'
+
+    routing:
+      App\InterInvest\Company\Application\Query\QueryInterface: sync
+      App\InterInvest\Company\Application\Command\CommandInterface: sync
+      App\InterInvest\Company\Application\Event\EventInterface: sync
