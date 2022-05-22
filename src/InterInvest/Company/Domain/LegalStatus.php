@@ -8,9 +8,13 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\InterInvest\Company\Application\Event;
+namespace App\InterInvest\Company\Domain;
 
-interface EventInterface
+interface LegalStatus
 {
+    public function getId(): int;
+
     public function getName(): string;
+
+    public function setName(string $name): LegalStatus;
 }

@@ -1,11 +1,6 @@
-
-
-
 services:
   _defaults:
     autowire: true
-
-
 
   App\InterInvest\Company\Application\Query\:
     resource: '%kernel.project_dir%/src/InterInvest/Company/Application/Query/*Handler.php'
