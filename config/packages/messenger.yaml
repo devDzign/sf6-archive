@@ -2,30 +2,30 @@ framework:
     messenger:
         serializer:
             default_serializer: 'messenger.transport.symfony_serializer'
-    default_bus: default.bus
-    buses:
-        default.bus: ~
-        history.bus:
-            middleware:
-                - validation
-                - doctrine_transaction
-        command.bus:
-            middleware:
-                - validation
-                - doctrine_transaction
-        query.bus:
-            middleware:
-                - validation
-                - doctrine_transaction
-        event.bus:
-            default_middleware: allow_no_handlers
-            middleware:
-                - doctrine_transaction
+        default_bus: default.bus
+        buses:
+            default.bus: ~
+            history.bus:
+                middleware:
+                    - validation
+                    - doctrine_transaction
+            command.bus:
+                middleware:
+                    - validation
+                    - doctrine_transaction
+            query.bus:
+                middleware:
+                    - validation
+                    - doctrine_transaction
+            event.bus:
+                default_middleware: allow_no_handlers
+                middleware:
+                    - doctrine_transaction
 
-    transports:
-        sync: 'sync://'
+        transports:
+            sync: 'sync://'
 
-    routing:
-        App\InterInvest\Company\Application\Query\QueryInterface: sync
-        App\InterInvest\Company\Application\Command\CommandInterface: sync
-        App\InterInvest\Company\Application\Event\EventInterface: sync
+        routing:
+            App\InterInvest\Company\Application\Query\QueryInterface: sync
+            App\InterInvest\Company\Application\Command\CommandInterface: sync
+            App\InterInvest\Company\Application\Event\EventInterface: sync

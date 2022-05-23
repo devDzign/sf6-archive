@@ -22,3 +22,42 @@ services:
     tags:
       - { name: controller.service_arguments }
       - { name: container.service_subscriber }
+
+
+  App\InterInvest\Company\UI\Web\Form\CompanyFormType:
+    tags: ['form.type']
+    arguments:
+      - '@App\InterInvest\Company\Domain\LegalStatusRepositoryInterface'
+
+  App\InterInvest\Company\UI\Web\Form\CompanyUpdateFormType:
+    tags: [ 'form.type' ]
+    arguments:
+      - '@App\InterInvest\Company\Domain\LegalStatusRepositoryInterface'
+
+
+  App\InterInvest\Company\Domain\AddressRepositoryInterface:
+    class: App\InterInvest\Company\Infrastructure\Doctrine\Persistence\Repository\AddressRepository
+
+  App\InterInvest\Company\Domain\LegalStatusRepositoryInterface:
+    class: App\InterInvest\Company\Infrastructure\Doctrine\Persistence\Repository\LegalStatusRepository
+
+  App\InterInvest\Company\Domain\LegalStatusInitiator: ~
+
+  App\InterInvest\Company\Domain\CompanyRepositoryInterface:
+    class: App\InterInvest\Company\Infrastructure\Doctrine\Persistence\Repository\CompanyRepository
+
+
+  App\InterInvest\Company\Application\Command\CommandBusInterface:
+    class: App\InterInvest\Company\Messenger\MessengerCommandBus
+    arguments:
+      - '@command.bus'
+
+  App\InterInvest\Company\Application\Query\QueryBusInterface:
+    class: App\InterInvest\Company\Messenger\MessengerQueryBus
+    arguments:
+      - '@query.bus'
+
+  App\InterInvest\Company\Application\Event\EventBusInterface:
+    class: App\InterInvest\Company\Messenger\MessengerEventBus
+    arguments:
+      - '@event.bus'

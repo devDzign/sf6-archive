@@ -8,7 +8,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\InterInvest\Shared\Application\Input;
+namespace App\InterInvest\Company\Application\Input;
 
 abstract class AbstractInput implements InputInterface
 {

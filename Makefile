@@ -142,4 +142,4 @@ preparedb: ## prepare environment test
 	$(CONSOLE) doctrine:database:create
 	$(CONSOLE) doctrine:migrations:diff
 	$(CONSOLE) doctrine:migrations:migrate -n
-	$(CONSOLE) app:import:legal-categories
+	#$(CONSOLE) app:import:legal-categories

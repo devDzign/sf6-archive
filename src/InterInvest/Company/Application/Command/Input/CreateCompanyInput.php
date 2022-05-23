@@ -16,29 +16,23 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateCompanyInput implements InputInterface
 {
-    /**
-     * @Assert\NotBlank
-     */
+
+    #[Assert\NotBlank]
     public ?string $name = null;
-    /**
-     * @Assert\NotBlank
-     */
+
+    #[Assert\NotBlank]
     public ?string $sirenNumber = null;
-    /**
-     * @Assert\NotBlank
-     */
+
+    #[Assert\NotBlank]
     public ?string $cityOfRegistration = null;
-    /**
-     * @@Assert\NotBlank()
-     */
+
+    #[Assert\NotBlank]
     public ?\DateTimeImmutable $dateOfRegistration = null;
-    /**
-     * @Assert\NotBlank
-     */
+
+    #[Assert\NotBlank]
     public ?string $capital = null;
-    /**
-     * @Assert\NotBlank
-     */
+
+    #[Assert\NotBlank]
     public ?LegalStatus $legalStatus = null;
 
     public ?array $addresses = [];

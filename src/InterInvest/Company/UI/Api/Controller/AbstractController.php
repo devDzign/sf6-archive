@@ -10,16 +10,16 @@ declare(strict_types=1);
 
 namespace App\InterInvest\Company\UI\Api\Controller;
 
-use App\InterInvest\Shared\Application\Command\CommandBusInterface;
-use App\InterInvest\Shared\Application\Command\CommandInterface;
-use App\InterInvest\Shared\Application\Input\InputInterface;
-use App\InterInvest\Shared\Application\Query\QueryBusInterface;
-use App\InterInvest\Shared\Application\Query\QueryInterface;
-use App\InterInvest\Shared\Domain\Exception\ConflictException;
-use App\InterInvest\Shared\Domain\Exception\Exception;
-use App\InterInvest\Shared\Domain\Exception\LockedException;
-use App\InterInvest\Shared\Domain\Exception\NotFoundException;
-use App\InterInvest\Shared\Form\InputForm;
+use App\InterInvest\Company\Application\Command\CommandBusInterface;
+use App\InterInvest\Company\Form\InputForm;
+use App\InterInvest\Company\Application\Query\QueryBusInterface;
+use App\InterInvest\Company\Application\Command\CommandInterface;
+use App\InterInvest\Company\Application\Input\InputInterface;
+use App\InterInvest\Company\Application\Query\QueryInterface;
+use App\InterInvest\Company\Domain\Exception\ConflictException;
+use App\InterInvest\Company\Domain\Exception\Exception;
+use App\InterInvest\Company\Domain\Exception\LockedException;
+use App\InterInvest\Company\Domain\Exception\NotFoundException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -29,39 +29,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class AbstractController extends BaseAbstractController
 {
-    private QueryBusInterface $queryBus;
 
     private CommandBusInterface $commandBus;
 
-    private InputForm $inputForm;
-
-    public function __construct(QueryBusInterface $queryBus, CommandBusInterface $commandBus, InputForm $inputForm)
+    public function __construct(CommandBusInterface $commandBus)
     {
-        $this->queryBus = $queryBus;
         $this->commandBus = $commandBus;
-        $this->inputForm = $inputForm;
     }
 
-    protected function submitInput(?InputInterface $input, string $type, array $data, array $options = []): InputInterface
-    {
-        return $this->inputForm->submit($input, $type, $data, $options);
-    }
-
-    protected function submitBulkInput(string $type, array $data, array $options = []): array
-    {
-        return $this->inputForm->submitBulk($type, $data, $options);
-    }
-
-    protected function ask(QueryInterface $query)
-    {
-        try {
-            return $this->queryBus->ask($query);
-        } catch (NotFoundException $exception) {
-            throw new NotFoundHttpException($exception->getMessage(), $exception);
-        } catch (Exception $exception) {
-            throw new BadRequestHttpException($exception->getMessage(), $exception);
-        }
-    }
 
     protected function handle(CommandInterface $command)
     {
